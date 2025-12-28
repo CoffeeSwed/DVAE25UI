@@ -1,4 +1,4 @@
-package org.northernaurora.dvae25.GUI.Survey.pages;
+package org.northernaurora.dvae25.GUI.survey.pages;
 
 import org.northernaurora.dvae25.GUI.GUIComponent.Page;
 import org.northernaurora.dvae25.GUI.Survey.Factory.SurveyComponentFactory;

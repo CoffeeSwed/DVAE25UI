@@ -54,18 +54,25 @@ public class SurveyComponentFactory {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
+        JPanel textPanel = new JPanel();
+
+        //Add to textPanel also!
         switch (type){
             default -> {
                 textArea.setFont(new Font(textArea.getFont().getFontName(), Font.PLAIN,
                         SurveyComponentFactory.FontSize(type)));
                 textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+                textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+                textPanel.setOpaque(false);
+                JScrollPane scrollpane = new JScrollPane(textArea);
+                scrollpane.setBorder(new EmptyBorder(10,10,10,10));
+                scrollpane.setBackground(Color.WHITE);
+                textPanel.setBorder(new EmptyBorder(10,10,10,10));
+                textPanel.add(scrollpane);
             }
         }
-        JPanel textPanel = new JPanel();
-        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-        textPanel.setOpaque(false);
-        textPanel.setBorder(new EmptyBorder(20,20,20,20));
-        textPanel.add(new JScrollPane(textArea));
         return textPanel;
+
+
     }
 }

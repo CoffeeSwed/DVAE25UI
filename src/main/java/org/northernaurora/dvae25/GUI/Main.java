@@ -2,8 +2,8 @@ package org.northernaurora.dvae25.GUI;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import org.northernaurora.dvae25.GUI.Survey.pages.SurveyPage;
-import org.northernaurora.dvae25.GUI.Survey.pages.SurveyWelcome;
+import org.northernaurora.dvae25.GUI.survey.pages.SurveyPage;
+import org.northernaurora.dvae25.GUI.survey.pages.SurveyWelcome;
 
 import java.awt.*;
 
