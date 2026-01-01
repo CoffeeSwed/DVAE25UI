@@ -1,7 +1,8 @@
-package org.northernaurora.dvae25.GUI.Survey.Factory;
+package org.northernaurora.dvae25.GUI.survey.factory;
 
-import org.northernaurora.dvae25.GUI.Survey.Factory.Types.SurveyComponentTextTypes;
-import org.northernaurora.dvae25.GUI.Survey.Factory.Types.SurveyComponentPanelTypes;
+import org.northernaurora.dvae25.GUI.GUIComponent.RoundedScrollPane;
+import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentTextTypes;
+import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentPanelTypes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,7 +11,7 @@ import java.awt.*;
 public class SurveyComponentFactory {
     public static int FontSize(SurveyComponentTextTypes type){
         switch (type){
-            case TITLE -> {
+            case HEADER -> {
                 return 34;
             }
             case SUBHEADING -> {
@@ -48,29 +49,30 @@ public class SurveyComponentFactory {
         return label;
     }
 
-    public static JPanel createTextArea(String text, SurveyComponentTextTypes type){
-        JTextArea textArea = new JTextArea();
+    public static JComponent createJEditorPane(String text, SurveyComponentTextTypes type){
+        JEditorPane textArea = new JEditorPane("text/html", "");
         textArea.setText(text);
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
         JPanel textPanel = new JPanel();
-
+        RoundedScrollPane scrollpane = new RoundedScrollPane(textArea, 20);
+        scrollpane.setBorder(new EmptyBorder(0,0,0,0));
         //Add to textPanel also!
+        textPanel.setOpaque(false);
         switch (type){
             default -> {
                 textArea.setFont(new Font(textArea.getFont().getFontName(), Font.PLAIN,
                         SurveyComponentFactory.FontSize(type)));
                 textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
                 textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-                textPanel.setOpaque(false);
-                JScrollPane scrollpane = new JScrollPane(textArea);
-                scrollpane.setBorder(new EmptyBorder(10,10,10,10));
-                scrollpane.setBackground(Color.WHITE);
+                textArea.setBorder(new EmptyBorder(5,5,5,5));
                 textPanel.setBorder(new EmptyBorder(10,10,10,10));
-                textPanel.add(scrollpane);
+                scrollpane.setInsets(0, scrollpane.getDefaultInset(), 0, scrollpane.getDefaultInset());
             }
         }
+        textPanel.add(scrollpane);
+        scrollpane.setBackground(Color.white);
+
+
         return textPanel;
 
 

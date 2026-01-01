@@ -1,9 +1,10 @@
 package org.northernaurora.dvae25.GUI.survey.pages;
 
 import org.northernaurora.dvae25.GUI.GUIComponent.Page;
-import org.northernaurora.dvae25.GUI.Survey.Factory.SurveyComponentFactory;
-import org.northernaurora.dvae25.GUI.Survey.Factory.Types.SurveyComponentTextTypes;
-import org.northernaurora.dvae25.GUI.Survey.Factory.Types.SurveyComponentPanelTypes;
+import org.northernaurora.dvae25.GUI.survey.GUIComponent.SurveyPageHeading;
+import org.northernaurora.dvae25.GUI.survey.factory.SurveyComponentFactory;
+import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentTextTypes;
+import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentPanelTypes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,14 +31,9 @@ public class SurveyPage extends Page {
     }
 
     public void addTitleComponents(){
-        JPanel panel = new JPanel();
-
-        panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
-
-        panel.add(SurveyComponentFactory.createLabel(this.getTitleString(), SurveyComponentTextTypes.TITLE));
-        panel.add(SurveyComponentFactory.createLabel(this.getTitleSubHeading(), SurveyComponentTextTypes.SUBHEADING));
-        panel.setBackground(SurveyComponentFactory.getBackground(SurveyComponentPanelTypes.TITLEHEADING));
-        this.add(panel);
+        if (this.getTitleSubHeading() != null  || this.getTitleString() != null){
+            this.add(new SurveyPageHeading(this.getTitleString(),this.getTitleSubHeading()));
+        }
     }
 
 }

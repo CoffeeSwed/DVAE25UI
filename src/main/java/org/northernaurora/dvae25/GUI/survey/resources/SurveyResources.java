@@ -6,15 +6,14 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.northernaurora.dvae25.GUI.survey.pages.SurveyWelcome;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 public class SurveyResources {
@@ -25,7 +24,11 @@ public class SurveyResources {
     public static final String English = "english";
 
     public static final String TEXTSFILE = "texts.xml";
+    public static final String HAS_RAW_RESOURCE = "has_raw_resource";
+
     private static HashMap<String, Document> documents = new HashMap<>();
+    private static HashMap<String, String> raw_contents = new HashMap<>();
+
     public static Document getDocument(String file) throws IOException, RuntimeException, SAXException {
         if (documents.containsKey(file)){
             return documents.get(file);
@@ -50,6 +53,22 @@ public class SurveyResources {
         throw new FileNotFoundException("Could not find resource "+file+"!");
     }
 
+    public static String getRawStringContent(String file) throws IOException, RuntimeException, SAXException {
+        if (raw_contents.containsKey(file)){
+            return raw_contents.get(file);
+        }
+
+        InputStream is = SurveyResources.class
+                .getClassLoader()
+                .getResourceAsStream(file);
+        if  (is != null){
+            String str = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+            raw_contents.put(file,str);
+            return str;
+        }
+        throw new FileNotFoundException("Could not find resource "+file+"!");
+    }
+
     /**
      * @param file
      * @param id
@@ -59,10 +78,23 @@ public class SurveyResources {
      * @throws RuntimeException
      * @throws SAXException
      * Expected format
+     * <?xml version="1.0" encoding="UTF-8"?>
      * <message>
+     *     <text id="Example">
+     *         <swedish>Hej</swedish>
+     *         <english>Hi</english>
+     *     </text>
      *     <text id="SurveyWelcomeText">
-     *         <swedish></swedish>
-     *         <english>You will be presented with multiple choices question which we wish you answered best to your ability.</english>
+     *         <swedish>&lt;html&gt;
+     *             &lt;head&gt;
+     *             &lt;style&gt;
+     *             &lt;/style&gt;
+     *             &lt;/head&gt;
+     *             &lt;body&gt;
+     *             Du kommer att få flervalsfrågor som vi ber dig att besvara efter bästa förmåga. &lt;br&gt;&lt;br&gt;&lt;b&gt;Alla svar anonymiseras.&lt;/b&gt;
+     *             &lt;/body&gt;
+     *             &lt;/html&gt;</swedish>
+     *         <english has_raw_resource="True">texts-raw/english/SurveyWelcomeText.html</english>
      *     </text>
      * </message>
      */
@@ -74,8 +106,16 @@ public class SurveyResources {
                         document.getElementsByTagName("text").item(index);
                 logger.debug("Checking item {}", textElement.getAttribute("id"));
                 if (textElement.getAttribute("id").equals(id)){
-                    Node node = textElement.getElementsByTagName(language).item(0);
+                    Element node = (Element) textElement.getElementsByTagName(language).item(0);
+                    if (node.getAttribute(SurveyResources.HAS_RAW_RESOURCE) != null){
+                        if (node.getAttribute(SurveyResources.HAS_RAW_RESOURCE).equalsIgnoreCase("true")) {
+                            String location = node.getTextContent();
+                            return SurveyResources.getRawStringContent(location);
+                        }
+
+                    }
                     return node.getTextContent();
+
                 }
             }
 

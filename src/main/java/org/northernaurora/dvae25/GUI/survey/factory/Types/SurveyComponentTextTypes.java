@@ -1,7 +1,7 @@
-package org.northernaurora.dvae25.GUI.Survey.Factory.Types;
+package org.northernaurora.dvae25.GUI.survey.factory.Types;
 
 public enum SurveyComponentTextTypes {
-    TITLE("title"),
+    HEADER("header"),
     SUBHEADING("subheading"),
     INFO1("info-1");
 

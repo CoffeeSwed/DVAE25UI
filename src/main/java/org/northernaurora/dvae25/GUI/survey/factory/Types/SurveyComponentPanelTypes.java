@@ -1,4 +1,4 @@
-package org.northernaurora.dvae25.GUI.Survey.Factory.Types;
+package org.northernaurora.dvae25.GUI.survey.factory.Types;
 
 public enum SurveyComponentPanelTypes {
     TITLEHEADING("title-heading");
