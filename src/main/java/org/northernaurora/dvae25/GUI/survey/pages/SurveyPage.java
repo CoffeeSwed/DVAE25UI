@@ -10,9 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SurveyPage extends Page {
+    public static String NEXTPAGECOMMAND = "NEXTPAGE";
+    public static String PREVIOUSPAGECOMMAND = "PREVIOUSPAGE";
 
     @Override
     public void init() {
+        super.init();
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         this.addTitleComponents();
         this.setBackground(new Color(255,232,162));

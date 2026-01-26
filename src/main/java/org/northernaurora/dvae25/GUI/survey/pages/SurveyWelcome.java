@@ -2,15 +2,24 @@ package org.northernaurora.dvae25.GUI.survey.pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.northernaurora.dvae25.GUI.DVGUI;
+import org.northernaurora.dvae25.GUI.survey.GUIComponent.SurveyQuestionCheckmark;
 import org.northernaurora.dvae25.GUI.survey.factory.SurveyComponentFactory;
 import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentTextTypes;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyStrings;
+import org.northernaurora.dvae25.GUI.survey.resources.SurveyLanguages;
+import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.SurveyResources;
+import org.northernaurora.dvae25.GUI.survey.resources.SurveyTexts;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
 
-public class SurveyWelcome extends SurveyPage {
+public class SurveyWelcome extends SurveyPage implements ActionListener {
     private static Logger logger = LogManager.getLogger(SurveyWelcome.class);
+    private SurveyDifferentialPrivacy differentialPrivacyPage;
 
     @Override
     public String getTitleString() {
@@ -25,10 +34,10 @@ public class SurveyWelcome extends SurveyPage {
     public void addInfo(){
         try {
             JComponent text = SurveyComponentFactory.createJEditorPane(
-                    SurveyResources.getText(SurveyResources.TEXTSFILE, SurveyStrings.WELCOMETEXT.label, SurveyResources.English),
+                    SurveyResources.getText(SurveyResources.TEXTSFILE, SurveyTexts.WELCOMETEXT.label, SurveyLanguages.ENGLISH),
                     SurveyComponentTextTypes.INFO1);
             // create panel for text area
-            this.add(text);
+            this.add(text, BorderLayout.PAGE_START);
         }
         catch (Exception e){
             logger.error(e.getMessage());
@@ -36,9 +45,77 @@ public class SurveyWelcome extends SurveyPage {
 
     }
 
+    public void addQuestions(){
+        JPanel questions = new JPanel();
+        questions.setLayout(new BoxLayout(questions, BoxLayout.Y_AXIS));
+
+        questions.add(new SurveyQuestionCheckmark("How old are you?", Arrays.stream(new String[]{"20-29", "30-39", "40-49", "50-59", "60-69", "70+"}).toList()));
+        questions.add(new SurveyQuestionCheckmark(
+                "What is your current occupation? (Select <b>all</b> that apply)",
+                Arrays.stream(new String[]{
+                        "Unemployed",
+                        "Full-time employment",
+                        "Part-time employment",
+                        "Student",
+                }).toList(), true
+        ));
+
+        questions.add(new SurveyQuestionCheckmark(
+                "What is your experience with participating in surveys?",
+                Arrays.stream(new String[]{
+                        "No experience participating in surveys",
+                        "Participated in at least one survey",
+                }).toList()
+        ));
+
+        questions.add(new SurveyQuestionCheckmark(
+                "What is your experience with <b>designing</b> surveys?",
+                Arrays.stream(new String[]{
+                        "No previous experience participating in the survey design process",
+                        "Involved in the design process of at least one survey",
+                }).toList()
+        ));
+
+        questions.setBackground(this.getBackground());
+        questions.setBorder(new EmptyBorder(20,20,20,20));
+        this.add(questions, BorderLayout.CENTER);
+        JPanel nextPagePanel = new JPanel();
+        JButton nextPage = new JButton("Continue survey");
+        nextPagePanel.add(nextPage);
+        nextPagePanel.setOpaque(false);
+        nextPage.setActionCommand(SurveyPage.NEXTPAGECOMMAND);
+
+
+        this.add(nextPagePanel, BorderLayout.PAGE_END);
+        this.setDifferentialPrivacyPage(new SurveyDifferentialPrivacy());
+        nextPage.addActionListener(this);
+    }
+
     @Override
     public void init() {
         super.init();
+        this.setLayout(new BorderLayout());
         this.addInfo();
+        this.addQuestions();
+    }
+
+    @Override
+    public void setDvguiParent(DVGUI dvguiParent) {
+        super.setDvguiParent(dvguiParent);
+        this.getDvguiParent().setScrollable(true);
+    }
+
+    public SurveyDifferentialPrivacy getDifferentialPrivacyPage() {
+        return differentialPrivacyPage;
+    }
+
+    public void setDifferentialPrivacyPage(SurveyDifferentialPrivacy differentialPrivacyPage) {
+        this.differentialPrivacyPage = differentialPrivacyPage;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals(SurveyPage.NEXTPAGECOMMAND))
+            this.getDvguiParent().addPage(this.getDifferentialPrivacyPage());
     }
 }

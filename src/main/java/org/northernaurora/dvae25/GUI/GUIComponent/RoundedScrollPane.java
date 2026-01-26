@@ -12,6 +12,12 @@ public class RoundedScrollPane extends JScrollPane {
         this.setRadius(radius);
     }
 
+    public RoundedScrollPane(int radius){
+        super();
+        this.setOpaque(false);
+        this.setRadius(radius);
+    }
+
     /**
      * @param radius
      * Will replace indents
