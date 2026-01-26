@@ -9,10 +9,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class SurveyQuestionCheckmark extends JPanel implements ItemListener {
     private static Logger logger = LogManager.getLogger(SurveyQuestionCheckmark.class);
@@ -109,7 +107,7 @@ public class SurveyQuestionCheckmark extends JPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        if(e.getItem().getClass() == QuestionCheckBox.class){
+        if(e.getItem() instanceof QuestionCheckBox){
             if (e.getStateChange() == ItemEvent.SELECTED && !this.isMulticheck()){
                 for(String question : this.answers.keySet()){
                     QuestionCheckBox checkbox = this.answers.get(question);
@@ -128,4 +126,6 @@ public class SurveyQuestionCheckmark extends JPanel implements ItemListener {
     public void setMulticheck(boolean multicheck) {
         this.multicheck = multicheck;
     }
+
+
 }
