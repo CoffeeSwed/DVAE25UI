@@ -7,7 +7,6 @@ import org.northernaurora.dvae25.GUI.survey.GUIComponent.SurveyQuestionCheckmark
 import org.northernaurora.dvae25.GUI.survey.factory.SurveyComponentFactory;
 import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentTextTypes;
 import org.northernaurora.dvae25.GUI.survey.resources.SurveyLanguages;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyQuestions;
 import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.SurveyResources;
 import org.northernaurora.dvae25.GUI.survey.resources.SurveyTexts;
 
@@ -16,10 +15,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
-public class SurveyDifferentialPrivacy extends SurveyPage implements ActionListener {
-    private static final Logger logger = LogManager.getLogger(SurveyDifferentialPrivacy.class);
-    private JPanel centerPanel;
+public class SurveyFinalPage extends SurveyPage implements ActionListener {
+    private static Logger logger = LogManager.getLogger(SurveyFinalPage.class);
+    private SurveyOnlineShoppingBehavior differentialPrivacyPage;
 
     @Override
     public String getTitleString() {
@@ -28,19 +28,19 @@ public class SurveyDifferentialPrivacy extends SurveyPage implements ActionListe
 
     @Override
     public String getTitleSubHeading() {
-        return "Differential Privacy";
+        return "Welcome to this survey!";
     }
 
     public void addInfo(){
         try {
             JComponent text = SurveyComponentFactory.createJEditorPane(
-                    SurveyResources.getText(SurveyResources.TEXTSFILE, SurveyTexts.DFPRIVACY.label, SurveyLanguages.ENGLISH),
+                    SurveyResources.getText(SurveyResources.TEXTSFILE, SurveyTexts.FINALPAGE.label, SurveyLanguages.ENGLISH),
                     SurveyComponentTextTypes.INFO1);
             // create panel for text area
             this.add(text, BorderLayout.PAGE_START);
         }
         catch (Exception e){
-            logger.error("Could not add Info Panels, error : ",e);
+            logger.error(e.getMessage());
         }
 
     }
@@ -49,46 +49,30 @@ public class SurveyDifferentialPrivacy extends SurveyPage implements ActionListe
         JPanel questions = new JPanel();
         questions.setLayout(new BoxLayout(questions, BoxLayout.Y_AXIS));
 
-        try {
-            questions.add(new SurveyQuestionCheckmark(
-                    SurveyResources.getQuestionText(SurveyResources.QUESTIONSFILE, SurveyQuestions.DFCONFIDENTLEGAL.label, SurveyLanguages.ENGLISH),
-                    SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.DFCONFIDENTLEGAL.label, SurveyLanguages.ENGLISH)
-            ));
-        } catch (Exception e) {
-            logger.error("Could not read questions, exception received : ",e);
-        }
 
-
-
-        questions.setBackground(this.getBackground());
-        questions.setBorder(new EmptyBorder(20,20,20,20));
-        this.getCenterPanel().add(questions);
         JPanel nextPagePanel = new JPanel();
-        nextPagePanel.setLayout(new FlowLayout());
+        JButton nextPage = new JButton("Submit survey");
+        nextPagePanel.setOpaque(false);
+        nextPage.setActionCommand(SurveyPage.NEXTPAGECOMMAND);
+
         JButton previousPage = new JButton("Go back");
         previousPage.setActionCommand(SurveyPage.PREVIOUSPAGECOMMAND);
 
-        JButton nextPage = new JButton("Continue survey");
-        nextPage.setActionCommand(SurveyPage.NEXTPAGECOMMAND);
 
         nextPagePanel.add(previousPage);
         nextPagePanel.add(nextPage);
-        nextPagePanel.setOpaque(false);
-        nextPagePanel.setAlignmentX(0.5f);
-        this.add(nextPagePanel, BorderLayout.PAGE_END);
-        nextPage.addActionListener(this);
         previousPage.addActionListener(this);
+        nextPage.addActionListener(this);
+        this.add(nextPagePanel, BorderLayout.PAGE_END);
+        this.setDifferentialPrivacyPage(new SurveyOnlineShoppingBehavior());
+
 
     }
 
     @Override
     public void init() {
         super.init();
-
         this.setLayout(new BorderLayout());
-        this.setCenterPanel(new JPanel());
-        this.getCenterPanel().setLayout(new BoxLayout(this.getCenterPanel(),BoxLayout.Y_AXIS));
-        this.add(this.getCenterPanel(),BorderLayout.CENTER);
         this.addInfo();
         this.addQuestions();
     }
@@ -97,20 +81,32 @@ public class SurveyDifferentialPrivacy extends SurveyPage implements ActionListe
     public void setDvguiParent(DVGUI dvguiParent) {
         super.setDvguiParent(dvguiParent);
         this.getDvguiParent().setScrollable(true);
+    }
 
+    public SurveyOnlineShoppingBehavior getDifferentialPrivacyPage() {
+        return differentialPrivacyPage;
+    }
+
+    public void setDifferentialPrivacyPage(SurveyOnlineShoppingBehavior differentialPrivacyPage) {
+        this.differentialPrivacyPage = differentialPrivacyPage;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(SurveyPage.PREVIOUSPAGECOMMAND.equals(e.getActionCommand()))
+        if(e.getActionCommand().equals(SurveyPage.NEXTPAGECOMMAND))
+        {
+            int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to submit your survey?", "Submit survey?",JOptionPane.YES_NO_OPTION);
+            // 0=yes, 1=no, 2=cancel
+            if(input == 0){
+                System.exit(0);
+            }
+
+        }
+        if(e.getActionCommand().equals(SurveyPage.PREVIOUSPAGECOMMAND))
+        {
+            logger.info("PREV PAGE");
             this.getDvguiParent().popPage();
-    }
 
-    public JPanel getCenterPanel() {
-        return centerPanel;
-    }
-
-    public void setCenterPanel(JPanel centerPanel) {
-        this.centerPanel = centerPanel;
+        }
     }
 }

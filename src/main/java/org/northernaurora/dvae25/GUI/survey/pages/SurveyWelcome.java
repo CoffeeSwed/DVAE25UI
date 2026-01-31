@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 public class SurveyWelcome extends SurveyPage implements ActionListener {
     private static Logger logger = LogManager.getLogger(SurveyWelcome.class);
-    private SurveyDifferentialPrivacy differentialPrivacyPage;
+    private SurveyOnlineShoppingBehavior differentialPrivacyPage;
 
     @Override
     public String getTitleString() {
@@ -61,20 +61,22 @@ public class SurveyWelcome extends SurveyPage implements ActionListener {
         ));
 
         questions.add(new SurveyQuestionCheckmark(
-                "What is your experience with participating in surveys?",
+                "Which following experiences with surveys do you have? (Select <b>all</b> that apply)",
                 Arrays.stream(new String[]{
-                        "No experience participating in surveys",
-                        "Participated in at least one survey",
+                        "No experience <b>participating</b> in surveys",
+                        "<b>Participated</b> in at least one survey",
+                        "No previous experience being a part of a survey <b>design</b> process",
+                        "Involved in the <b>design</b> process of at least one survey"
                 }).toList()
-        ));
+        , true));
 
-        questions.add(new SurveyQuestionCheckmark(
+        /*questions.add(new SurveyQuestionCheckmark(
                 "What is your experience with <b>designing</b> surveys?",
                 Arrays.stream(new String[]{
                         "No previous experience participating in the survey design process",
                         "Involved in the design process of at least one survey",
                 }).toList()
-        ));
+        ));*/
 
         questions.setBackground(this.getBackground());
         questions.setBorder(new EmptyBorder(20,20,20,20));
@@ -87,7 +89,7 @@ public class SurveyWelcome extends SurveyPage implements ActionListener {
 
 
         this.add(nextPagePanel, BorderLayout.PAGE_END);
-        this.setDifferentialPrivacyPage(new SurveyDifferentialPrivacy());
+        this.setDifferentialPrivacyPage(new SurveyOnlineShoppingBehavior());
         nextPage.addActionListener(this);
     }
 
@@ -105,11 +107,11 @@ public class SurveyWelcome extends SurveyPage implements ActionListener {
         this.getDvguiParent().setScrollable(true);
     }
 
-    public SurveyDifferentialPrivacy getDifferentialPrivacyPage() {
+    public SurveyOnlineShoppingBehavior getDifferentialPrivacyPage() {
         return differentialPrivacyPage;
     }
 
-    public void setDifferentialPrivacyPage(SurveyDifferentialPrivacy differentialPrivacyPage) {
+    public void setDifferentialPrivacyPage(SurveyOnlineShoppingBehavior differentialPrivacyPage) {
         this.differentialPrivacyPage = differentialPrivacyPage;
     }
 

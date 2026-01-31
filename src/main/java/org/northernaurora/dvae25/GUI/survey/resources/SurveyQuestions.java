@@ -1,7 +1,13 @@
 package org.northernaurora.dvae25.GUI.survey.resources;
 
 public enum SurveyQuestions {
-    DFCONFIDENTLEGAL("DFPRIVACY_CONFIDENT_IN_DF");
+    ONLINEHABITS("ONLINE_HABITS"),
+    ONLINEREGRET("ONLINE_REGRET"),
+    ONLINEADBLOCK("ONLINE_ADBLOCK"),
+    ONLINEADSVIDEO("ONLINE_ADS_VIDEO"),
+
+    ONLINESHOPPING("ONLINE_SHOPPING");
+
     public final String label;
     private SurveyQuestions(String label){
         this.label = label;

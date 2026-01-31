@@ -1,25 +1,240 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <questions>
-    <question id="DFPRIVACY_CONFIDENT_IN_DF">
+    <question id="ONLINE_SHOPPING">
         <question_text>
             <swedish></swedish>
-            <english>How confident are you that DF prevents people concluding if you participated in a study or not?</english>
+            <english><![CDATA[
+What proportion of your <b>non-grocery purchases</b> do you estimate are made <b>online</b>? (Purchases of <b>physical</b> items)<br><br>Choose the best fitting option:
+            ]]></english>
         </question_text>
         <question_answer>
             <swedish></swedish>
-            <english is_raw_resource="True">questions-raw/english/DFPRIVACY_CONFIDENT_IN_DF/0.html</english>
+            <english><![CDATA[10%]]></english>
         </question_answer>
         <question_answer>
             <swedish></swedish>
-            <english is_raw_resource="True">questions-raw/english/DFPRIVACY_CONFIDENT_IN_DF/1.html</english>
+            <english><![CDATA[20%]]></english>
         </question_answer>
         <question_answer>
             <swedish></swedish>
-            <english is_raw_resource="True">questions-raw/english/DFPRIVACY_CONFIDENT_IN_DF/2.html</english>
+            <english><![CDATA[30%]]></english>
         </question_answer>
         <question_answer>
             <swedish></swedish>
-            <english is_raw_resource="True">questions-raw/english/DFPRIVACY_CONFIDENT_IN_DF/3.html</english>
+            <english><![CDATA[40%]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[50%]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[60%]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[70%]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[80%]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[90%]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[100%]]></english>
+        </question_answer>
+    </question>
+
+    <question id="ONLINE_REGRET">
+        <question_text>
+            <swedish></swedish>
+            <english><![CDATA[
+Do you often <b>regret</b> your <b>non-grocery online purchases</b> or find that you <b>use them less than you expected?</b><br><br>Choose the best fitting option:
+            ]]></english>
+        </question_text>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[All the time]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Most of the time]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Some of the time]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Rarely]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Almost never]]></english>
+        </question_answer>
+    </question>
+    <question id="ONLINE_HABITS">
+        <question_text>
+            <swedish></swedish>
+            <english><![CDATA[
+How many hours a day do you spend on <b>social platforms</b>, such as social media or forums?<br><br>Choose the closest option:
+            ]]></english>
+        </question_text>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[less than 1 hour]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[1 hour]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[2 hours]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[3 hours]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[4 hours]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[5 hours]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[6 hours]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[7 hours]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[8 hours]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[more than 8 hours]]></english>
+        </question_answer>
+    </question>
+    <question id="ONLINE_ADBLOCK">
+        <question_text>
+            <swedish></swedish>
+            <english><![CDATA[
+Do you use any ad-blocking tools online?
+            ]]></english>
+        </question_text>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Yes, all the time]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Yes, sometimes]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[No]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[I dont know]]></english>
+        </question_answer>
+    </question>
+    <question id="ONLINE_ADS">
+        <question_text>
+            <swedish></swedish>
+            <english><![CDATA[Do you ever watch video ads?]]></english>
+        </question_text>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Yes, all the time]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Yes, sometimes]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[No]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[I dont know]]></english>
+        </question_answer>
+    </question>
+    <question id="ONLINE_ADS_VIDEO">
+        <question_text>
+            <swedish></swedish>
+            <english><![CDATA[Do you ever get exposed to advertisements in <b>video</b> format?]]></english>
+        </question_text>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Yes, all the time]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Yes, sometimes]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[No]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[I dont know]]></english>
+        </question_answer>
+    </question>
+    <question id="ONLINE_ADS_IMAGE">
+        <question_text>
+            <swedish></swedish>
+            <english><![CDATA[Do you ever get exposed to advertisements in <b>image</b> format?]]></english>
+        </question_text>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Yes, all the time]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Yes, sometimes]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Rarely]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[No]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[I dont know]]></english>
+        </question_answer>
+    </question>
+    <question id="ONLINE_ADS_PURCHASES">
+        <question_text>
+            <swedish></swedish>
+            <english><![CDATA[Have you ever bought <b>non-grocery items</b> online that you first heard about through an advertisement?]]></english>
+        </question_text>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[Yes]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[No]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[I dont know]]></english>
         </question_answer>
     </question>
 

@@ -16,13 +16,17 @@
             &lt;/html&gt;</swedish>
         <english is_raw_resource="True">texts-raw/english/SurveyWelcomeText.html</english>
     </text>
-    <text id="DFPRIVACY">
+    <text id="SPENDINGBEHAVIOR">
         <swedish></swedish>
-        <english is_raw_resource="True">texts-raw/english/DFPRIVACY.html</english>
+        <english is_raw_resource="True">texts-raw/english/SPENDINGBEHAVIOR.html</english>
     </text>
-    <text id="DFPRIVACY_CONFIDENT_IN_DF">
+    <text id="ONLINEBEHAVIOR">
         <swedish></swedish>
-        <english>How confident are you in that DF can adequately protect you from legal trouble?</english>
+        <english is_raw_resource="True">texts-raw/english/ONLINEBEHAVIOR.html</english>
+    </text>
+    <text id="FINAL_PAGE">
+        <swedish></swedish>
+        <english is_raw_resource="True">texts-raw/english/FINAL_PAGE.html</english>
     </text>
 
 </message>
