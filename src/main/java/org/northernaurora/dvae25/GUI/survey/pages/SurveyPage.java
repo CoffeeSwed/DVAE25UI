@@ -7,6 +7,7 @@ import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentTextTyp
 import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentPanelTypes;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class SurveyPage extends Page {

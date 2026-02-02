@@ -47,6 +47,10 @@ What proportion of your <b>non-grocery purchases</b> do you estimate are made <b
             <swedish></swedish>
             <english><![CDATA[100%]]></english>
         </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[I dont know]]></english>
+        </question_answer>
     </question>
 
     <question id="ONLINE_REGRET">
@@ -75,6 +79,10 @@ Do you often <b>regret</b> your <b>non-grocery online purchases</b> or find that
         <question_answer>
             <swedish></swedish>
             <english><![CDATA[Almost never]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[I dont know]]></english>
         </question_answer>
     </question>
     <question id="ONLINE_HABITS">
@@ -123,6 +131,10 @@ How many hours a day do you spend on <b>social platforms</b>, such as social med
         <question_answer>
             <swedish></swedish>
             <english><![CDATA[more than 8 hours]]></english>
+        </question_answer>
+        <question_answer>
+            <swedish></swedish>
+            <english><![CDATA[I dont know]]></english>
         </question_answer>
     </question>
     <question id="ONLINE_ADBLOCK">

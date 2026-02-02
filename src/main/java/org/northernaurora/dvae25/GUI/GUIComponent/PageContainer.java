@@ -6,16 +6,20 @@ import org.apache.logging.log4j.Logger;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class PageContainer extends JPanel implements Scrollable, PropertyChangeListener {
+public class PageContainer extends JPanel implements Scrollable, PropertyChangeListener, ComponentListener {
     private static final Logger logger = LogManager.getLogger(PageContainer.class);
     private Page activePage;
     public PageContainer() {
         super();
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        this.setBorder(null);
+        this.addComponentListener(this);
+
     }
 
     /**
@@ -26,16 +30,11 @@ public class PageContainer extends JPanel implements Scrollable, PropertyChangeL
         int width = 0;
         int height = 0;
         for (Component comp : getComponents()) {
+            comp.revalidate();
             Dimension d = comp.getPreferredSize();
-            width = Math.max(width, d.width);
-            height += d.height;
+            width += d.width;
+            height = Math.max(height,d.height);
         }
-        if (this.getMaximumSize().getWidth() > width){
-            width = (int)this.getMaximumSize().getWidth();
-        }
-        /*if (this.getMaximumSize().getHeight() > height){
-            height = (int)this.getMaximumSize().getHeight();
-        }*/
         return new Dimension(width, height);
     }
 
@@ -73,13 +72,18 @@ public class PageContainer extends JPanel implements Scrollable, PropertyChangeL
     public void setActivePage(Page activePage) {
         if (this.getActivePage() != null){
             this.getActivePage().removePropertyChangeListener("background",this);
-            this.remove(this.getActivePage());
-
         }
-        this.activePage = activePage;
+        this.removeAll();
         activePage.addPropertyChangeListener("background",this);
         this.setBackground(activePage.getBackground());
-        this.add(activePage,BorderLayout.CENTER);
+        activePage.setAlignmentX(0.5f);
+        this.add(Box.createHorizontalGlue());
+        this.add(activePage);
+        this.add(Box.createHorizontalGlue());
+        this.activePage = activePage;
+        this.refresh();
+
+
     }
 
     @Override
@@ -87,7 +91,46 @@ public class PageContainer extends JPanel implements Scrollable, PropertyChangeL
         Color oldColor = (Color) evt.getOldValue();
         Color newColor = (Color) evt.getNewValue();
 
-        logger.info("Changed background color to : "+newColor);
         this.setBackground(newColor);
+    }
+
+    public void refresh(){
+        this.revalidate();
+        if(this.getActivePage() != null){
+
+            if(this.getActivePage().getMaximumSize().equals(this.getPreferredSize()) || this.getPreferredSize() == null){
+                return;
+            }
+            this.getActivePage().setMaximumSize(this.getPreferredSize());
+        }
+        this.getActivePage().repaint();
+
+    }
+
+    public void resized(){
+        this.refresh();
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        if(e.getSource() == this) {
+            this.refresh();
+        }
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+
+        //this.refresh();
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        //this.refresh();
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        //this.refresh();
     }
 }

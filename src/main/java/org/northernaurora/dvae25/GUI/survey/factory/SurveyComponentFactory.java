@@ -49,7 +49,7 @@ public class SurveyComponentFactory {
         return label;
     }
 
-    public static JComponent createJEditorPane(String text, SurveyComponentTextTypes type){
+    public static JPanel createJEditorPane(String text, SurveyComponentTextTypes type){
         JEditorPane textArea = new JEditorPane("text/html", "");
         textArea.setText(text);
         textArea.setEditable(false);

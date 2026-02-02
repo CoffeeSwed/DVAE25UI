@@ -10,7 +10,7 @@ import java.awt.*;
 public class Main{
     private static final Logger logger = LogManager.getLogger(Main.class);
     static void main(String[] args){
-        //logger.info(System.setProperty("sun.java2d.uiScale", "1.45"));
+        logger.info(System.setProperty("sun.java2d.uiScale", "1.45"));
         DVGUI gui = new DVGUI();
 
         SurveyWelcome surveyPage = new SurveyWelcome();

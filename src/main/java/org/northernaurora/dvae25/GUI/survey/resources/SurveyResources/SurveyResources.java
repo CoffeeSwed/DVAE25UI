@@ -114,7 +114,6 @@ public class SurveyResources {
             for (int index = 0; index < document.getElementsByTagName("text").getLength(); index++){
                 Element textElement = (Element)
                         document.getElementsByTagName("text").item(index);
-                logger.debug("Checking Text item {}", textElement.getAttribute("id"));
                 if (textElement.getAttribute("id").equals(id)){
                     Element node = (Element) textElement.getElementsByTagName(language.tag).item(0);
                     if (node.getAttribute(SurveyResources.IS_RAW_RESOURCE).equalsIgnoreCase("true")) {
@@ -144,7 +143,6 @@ public class SurveyResources {
             for (int index = 0; index < document.getElementsByTagName("question").getLength(); index++){
                 Element questionElement = (Element)
                         document.getElementsByTagName("question").item(index);
-                logger.debug("Checking Question Text item {}", questionElement.getAttribute("id"));
                 if (questionElement.getAttribute("id").equals(id)){
                     Element node = (Element) ((Element) questionElement.getElementsByTagName("question_text").item(0)).getElementsByTagName(language.tag).item(0);
                     if (node.getAttribute(SurveyResources.IS_RAW_RESOURCE).equalsIgnoreCase("true")) {
@@ -177,7 +175,6 @@ public class SurveyResources {
             for (int index = 0; index < document.getElementsByTagName("question").getLength(); index++){
                 Element questionElement = (Element)
                         document.getElementsByTagName("question").item(index);
-                logger.debug("Checking Question Answer items {}", questionElement.getAttribute("id"));
                 if (questionElement.getAttribute("id").equals(id)){
                     NodeList nodeList = questionElement.getElementsByTagName("question_answer");
                     int length = nodeList.getLength();

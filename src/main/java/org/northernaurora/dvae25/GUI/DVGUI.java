@@ -14,7 +14,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Stack;
 
-public class DVGUI implements ComponentListener, PropertyChangeListener {
+public class DVGUI implements PropertyChangeListener, ComponentListener {
     private static final Logger logger = LogManager.getLogger(DVGUI.class);
 
 
@@ -24,7 +24,6 @@ public class DVGUI implements ComponentListener, PropertyChangeListener {
     private Color background;
     public DVGUI() {
         this.initialize();
-
     }
 
     private Container getActiveContentPane() {
@@ -61,23 +60,23 @@ public class DVGUI implements ComponentListener, PropertyChangeListener {
         }
         this.pageContainer = new PageContainer();
         this.pageContainer.addPropertyChangeListener("background",this);
+        pageContainer.setAlignmentY(Component.CENTER_ALIGNMENT);
         return this.pageContainer;
     }
 
     private void initialize() {
         logger.debug("Creating new Active Frame");
         this.activeFrame = new JFrame();
-        this.getActiveContentPane().setLayout(new BorderLayout());
-
+        this.getActiveContentPane().setLayout(new BoxLayout(this.getActiveContentPane(),BoxLayout.Y_AXIS));
         this.getActiveJFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getActiveJFrame().setSize(new Dimension(480, 480));
+        this.getActiveJFrame().setSize(new Dimension(480, 610));
         this.setPageStack(new Stack<>());
         this.getActiveJFrame().setVisible(true);
-
-        this.getActiveContentPane().add(this.newPageContainer(), BorderLayout.CENTER);
+        this.getActiveContentPane().add(Box.createVerticalGlue());
+        this.getActiveContentPane().add(this.newPageContainer());
+        this.getActiveContentPane().add(Box.createVerticalGlue());
         logger.debug("Created new Active Frame");
-
-        this.getActiveJFrame().addComponentListener(this);
+        this.getActiveContentPane().addComponentListener(this);
 
     }
 
@@ -98,8 +97,8 @@ public class DVGUI implements ComponentListener, PropertyChangeListener {
         logger.debug("Set page to : "+page.getClass().toString());
         if (!page.Isinitialized())
             page.init();
+        this.resized();
 
-        this.refresh();
     }
 
     public void popPage(){
@@ -110,34 +109,25 @@ public class DVGUI implements ComponentListener, PropertyChangeListener {
     }
 
 
-    public void refresh() {
-        PageContainer container = this.getPageContainer();
-        if (container != null) {
-            this.getPageContainer().setMaximumSize(this.getActiveContentPane().getSize());
-            logger.info("Maximum size for PageContainer now : "+this.getPageContainer().getMaximumSize());
-        }
-        this.getActiveContentPane().revalidate();
-        this.getActiveContentPane().repaint();
-    }
 
     public void setScrollable(boolean bool){
         if ((this.isScrollable() && !bool) || (!this.isScrollable() && bool)) {
 
-            for (Component comp : this.getActiveContentPane().getComponents()) {
-                this.getActiveContentPane().remove(comp);
-
-            }
+            this.getActiveContentPane().removeAll();
+            this.getActiveContentPane().add(Box.createVerticalGlue());
             if(bool){
                 JScrollPane jScrollPane = new JScrollPane(this.getPageContainer());
                 jScrollPane.setBorder(new EmptyBorder(0,0,0,0));
                 jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
                 jScrollPane.getViewport().setBackground(this.getBackground());
-                this.getActiveContentPane().add(jScrollPane, BorderLayout.CENTER);
+                this.getActiveContentPane().add(jScrollPane);//, BorderLayout.CENTER);
             }else{
 
-                this.getActiveContentPane().add(this.getPageContainer(), BorderLayout.CENTER);
+                this.getActiveContentPane().add(this.getPageContainer());//, BorderLayout.CENTER);
             }
-            this.refresh();
+            this.getActiveContentPane().add(Box.createVerticalGlue());
+
+
         }
 
 
@@ -156,25 +146,6 @@ public class DVGUI implements ComponentListener, PropertyChangeListener {
         return null;
     }
 
-    @Override
-    public void componentResized(ComponentEvent e) {
-        this.refresh();
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent e) {
-        this.refresh();
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-        this.refresh();
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-
-    }
 
 
     @Override
@@ -192,6 +163,33 @@ public class DVGUI implements ComponentListener, PropertyChangeListener {
         if(this.getScrollable() != null){
             this.getScrollable().getViewport().setBackground(this.getBackground());
         }
+        this.getActiveContentPane().setBackground(this.getBackground());
+    }
+
+    public void resized(){
+        if(this.getPageContainer() != null){
+
+        }
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        this.resized();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        this.resized();
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        this.resized();
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        this.resized();
     }
 }
 

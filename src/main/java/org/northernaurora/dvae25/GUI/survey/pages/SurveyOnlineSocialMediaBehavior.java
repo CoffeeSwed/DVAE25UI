@@ -66,6 +66,15 @@ public class SurveyOnlineSocialMediaBehavior extends SurveyPage implements Actio
                     SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSVIDEO.label, SurveyLanguages.ENGLISH)
             ));
 
+            questions.add(new SurveyQuestionCheckmark(
+                    SurveyResources.getQuestionText(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSIMAGES.label, SurveyLanguages.ENGLISH),
+                    SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSIMAGES.label, SurveyLanguages.ENGLISH)
+            ));
+            questions.add(new SurveyQuestionCheckmark(
+                    SurveyResources.getQuestionText(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSPURCHASES.label, SurveyLanguages.ENGLISH),
+                    SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSPURCHASES.label, SurveyLanguages.ENGLISH)
+            ));
+
 
 
 
