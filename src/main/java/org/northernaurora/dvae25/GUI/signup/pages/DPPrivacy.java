@@ -5,18 +5,20 @@ import org.apache.logging.log4j.Logger;
 import org.northernaurora.dvae25.GUI.GUIComponent.Page;
 import org.northernaurora.dvae25.GUI.GUIComponent.RoundedJPanel;
 import org.northernaurora.dvae25.GUI.GUIComponent.RoundedScrollPane;
+import org.northernaurora.dvae25.GUI.resources.SurveyResources.Exception.SurveyResourcesException;
+import org.northernaurora.dvae25.GUI.resources.SurveyResources.Resources;
+import org.northernaurora.dvae25.GUI.resources.TextLanguages;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UserAgreement extends Page implements ActionListener {
-    private static final Logger logger = LogManager.getLogger(UserAgreement.class);
+public class DPPrivacy extends Page implements ActionListener {
+    private static final Logger logger = LogManager.getLogger(DPPrivacy.class);
     private static final String USER_AGREEMENT = "USER_AGREEMENT";
-    private static final DPPrivacy dpprivacy = new DPPrivacy();
-    private RoundedJPanel center;
+    private RoundedScrollPane scrollPane;
+    private JPanel center;
     @Override
     public String getTitleString() {
         return null;
@@ -36,22 +38,17 @@ public class UserAgreement extends Page implements ActionListener {
 
     public void addAll(){
         this.center.removeAll();
-        this.addLabel("Privacy Notice");
-        this.addTextArea("To help improve the user experience and share statistics with various shareholders, data will be collected from your system along with usage information from the application.");
-        this.addTextArea("\nThe information that may be collected includes the following:\n");
-        this.addTextArea("\t1. System hardware");
-        this.addTextArea("\t2. System operating system");
-        this.addTextArea("\t3. System language");
-        this.addTextArea("\t4. Installed applications");
-        this.addTextArea("\t5. Application usage information");
-        this.addTextArea("\t6. Application settings");
 
-
-
-        JButton button = new JButton("How is my privacy protected?");
+        JButton button = new JButton("Return");
         button.setAlignmentX(0.5f);
         button.addActionListener(this);
         button.setActionCommand(USER_AGREEMENT);
+        try {
+            this.addEditorPane(Resources.getText(Resources.TEXTSFILE,USER_AGREEMENT, TextLanguages.ENGLISH));
+        } catch (SurveyResourcesException e) {
+            throw new RuntimeException(e);
+        }
+
         this.center.add(button);
 
     }
@@ -67,16 +64,18 @@ public class UserAgreement extends Page implements ActionListener {
         this.getCenter().setBackground(Utils.PANEL_COLOR);
         this.getCenter().setLayout(new BoxLayout(center,BoxLayout.Y_AXIS));
         this.addAll();
+        this.setScrollPane(new RoundedScrollPane(center,20));
+        this.getScrollPane().setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         this.onWindowUpdate();
-        this.add(center);
+        this.add(this.getCenter());
 
     }
 
-    public RoundedJPanel getCenter() {
+    public JPanel getCenter() {
         return center;
     }
 
-    public void setCenter(RoundedJPanel center) {
+    public void setCenter(JPanel center) {
         this.center = center;
     }
 
@@ -87,11 +86,8 @@ public class UserAgreement extends Page implements ActionListener {
             int width = Math.min(wantedWidth,this.getDvguiParent().getWindowSize().width);
             float heigth = this.getDvguiParent().getWindowSize().height;
             heigth = 8*heigth/10.0f;
-            heigth = Math.max(heigth,400);
-            this.getCenter().setMaximumSize(new Dimension(wantedWidth,(int)heigth));
-            this.getCenter().setMinimumSize(new Dimension(width,(int)heigth));
-            logger.info("Center min size now : "+this.getCenter().getMinimumSize());
-
+            heigth = Math.max(heigth,800);
+            this.getCenter().setMaximumSize(new Dimension(width,Integer.MAX_VALUE));
             this.revalidate();
             this.repaint();
         }
@@ -100,9 +96,16 @@ public class UserAgreement extends Page implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(USER_AGREEMENT.equals(e.getActionCommand())){
-            this.getDvguiParent().addPage(dpprivacy);
+            this.getDvguiParent().popPage();
         }
     }
 
 
+    public RoundedScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public void setScrollPane(RoundedScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
 }

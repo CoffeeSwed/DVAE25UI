@@ -1,15 +1,18 @@
 package org.northernaurora.dvae25.GUI.GUIComponent;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class RoundedScrollPane extends JScrollPane {
     private int radius;
     private int[] insets = {0,0,0,0};
+
     public RoundedScrollPane(JComponent child, int radius){
         super(child);
         this.setOpaque(false);
         this.setRadius(radius);
+        this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
     public RoundedScrollPane(int radius){

@@ -111,9 +111,12 @@ public class PageContainer extends JPanel implements Scrollable, PropertyChangeL
                     listener.newSize(newSize);
                 }
                 SwingUtilities.invokeLater(() -> {
-
-                    this.handleComponentSize();
+                    this.getActivePage().onWindowUpdate();
+                    SwingUtilities.invokeLater(() -> {
+                        this.handleComponentSize();
+                    });
                 });
+
 
 
             }
@@ -127,7 +130,7 @@ public class PageContainer extends JPanel implements Scrollable, PropertyChangeL
 
 
                 if(this.getActivePage() != null){
-                    this.getActivePage().onWindowResize(newSize);
+                    this.getActivePage().onWindowUpdate();
                 }
 
             }

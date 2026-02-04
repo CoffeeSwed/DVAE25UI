@@ -28,7 +28,7 @@
         <swedish></swedish>
         <english is_raw_resource="True">texts-raw/english/FINAL_PAGE.html</english>
     </text>
-    <text id="USERAGREEMENT">
+    <text id="USER_AGREEMENT">
         <swedish></swedish>
         <english is_raw_resource="True">texts-raw/english/USERAGREEMENT.html</english>
     </text>

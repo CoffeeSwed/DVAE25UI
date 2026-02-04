@@ -7,13 +7,18 @@ import java.awt.*;
 public class Utils {
 
     public static final String BASE = "/Signup/";
-    public static final Color BACKGROUND_COLOR = Color.WHITE;
+    public static final Color PANEL_COLOR = Color.WHITE;
+    public static final Color BACKGROUND_COLOR = Color.lightGray;
+
     public static JTextArea createTextArea(String content){
-        JTextArea area = new JTextArea(content);
-        area.setBackground(BACKGROUND_COLOR);
+        JTextArea area = new JTextArea(content,1,1024*1024);
+        area.setTabSize(3);
+        area.setBackground(PANEL_COLOR);
         area.setFont(getTextFont());
         area.setOpaque(false);
         area.setLineWrap(true);
+        area.setWrapStyleWord(true);
+        area.setEditable(false);
         return area;
     }
     public static JEditorPane createEditorPane(String content){
@@ -21,7 +26,7 @@ public class Utils {
         pane.setEditable(false);
         HTMLDocument doc = (HTMLDocument) pane.getDocument();
         doc.setBase(Utils.class.getResource(BASE));
-        pane.setBackground(BACKGROUND_COLOR);
+        pane.setBackground(PANEL_COLOR);
         pane.setOpaque(false);
 
         return pane;
@@ -29,7 +34,7 @@ public class Utils {
 
     public static JLabel createLabel(String privacyNotice) {
         JLabel label = new JLabel(privacyNotice);
-        label.setBackground(BACKGROUND_COLOR);
+        label.setBackground(PANEL_COLOR);
         label.setOpaque(false);
         label.setAlignmentX(0.5f);
         label.setFont(getLabelFont());

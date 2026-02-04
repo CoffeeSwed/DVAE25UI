@@ -1,1 +1,131 @@
-To help improve the user experience and share statistics with various shareholders, data will be collected from your system along with usage information from the application.
+<html>
+<head>
+    <style>
+        body{
+            font-family: 'Arial', sans-serif;
+        }
+        h1{
+            font-size: 32;
+            text-align: center;
+        }
+        div{
+            font-size :24;
+        }
+        h2{
+            font-size: 28;
+            text-align: center;
+        }
+        .t1 {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 24px;
+        }
+
+        .tables {
+            border: 1px solid #666;
+            padding: 4px 8px;
+            background-color: black;
+            color: white;
+            margin: 0px;
+        }
+
+        .caption {
+            margin-top: 6px;
+            font-style: italic;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>How is my privacy protected?</h1>
+<div>
+    To maintain your privacy, all the collected data sent from your device to us is protected by <b>LDP (Local Differential Privacy)</b>. LDP works by inserting noise into the data it is sent. Noise for this application is introduced by randomly modifying the original data into a state that differs to a degree from the original data. <br>This allows us to publish statistics to our different shareholders while making it impossible for them to determine if you are a customer whilst also preventing anyone with the modified data to be certain about what the original data was.
+</div>
+<h2>Example</h2>
+<center>
+<div>
+    <table cellpadding="20">
+        <tr>
+            <td valign="top">
+                <div class="tables">
+                <table border="1" cellpadding="4" cellspacing="0">
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Operating System</td>
+                        <td>Windows 11</td>
+                    </tr>
+                    <tr>
+                        <td>System Language</td>
+                        <td>Swedish</td>
+                    </tr>
+                    <tr>
+                        <td>Installed Applications</td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <th>Application</th>
+                                </tr>
+                                <tr>
+                                    <th>Zoom</th>
+                                </tr>
+                                <tr>
+                                    <th>Skype</th>
+                                </tr>
+                                <tr>
+                                    <th>Firefox</th>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <div align="center"><i>Original data</i></div>
+                </div>
+            </td>
+
+            <td valign="top">
+                <div class="tables">
+                    <table border="1" cellpadding="4" cellspacing="0">
+                        <tr>
+                            <th>Field</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Operating System</td>
+                            <td>Windows 11</td>
+                        </tr>
+                        <tr>
+                            <td>System Language</td>
+                            <td><i color="orange">English</i></td>
+                        </tr>
+                        <tr>
+                            <td>Installed Applications</td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <th>Application</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Zoom</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Skype</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Firefox</th>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <div align="center"><i>Modified data</i></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</center>
+</body>
+</html>

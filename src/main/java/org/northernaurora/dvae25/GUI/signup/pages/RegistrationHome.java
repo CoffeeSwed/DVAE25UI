@@ -29,9 +29,9 @@ public class RegistrationHome extends Page {
     @Override
     public void init() {
         super.init();
-        this.setBackground(new Color(50,50,255));
+        this.setBackground(Utils.BACKGROUND_COLOR);
         RoundedJPanel center = new RoundedJPanel(20);
-        center.setBackground(Color.LIGHT_GRAY);
+        center.setBackground(Utils.PANEL_COLOR);
         center.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(inset, inset, inset, inset); // spacing
@@ -96,7 +96,7 @@ public class RegistrationHome extends Page {
         // Button action
         signupButton.addActionListener(this::onSignup);
         this.center = center;
-        this.onWindowResize(this.getDvguiParent().getWindowSize());
+        this.onWindowUpdate();
         this.add(center);
     }
 
@@ -133,8 +133,9 @@ public class RegistrationHome extends Page {
     }
 
     @Override
-    public void onWindowResize(Dimension newSize) {
+    public void onWindowUpdate() {
         if(this.getDvguiParent() != null){
+            Dimension newSize = this.getDvguiParent().getWindowSize();
             JLabel label = (JLabel) this.center.getComponent(0);
             logger.info(this.getDvguiParent().getWindowSize());
             int new_columns = (int) Math.ceil(8.0f*(float)newSize.width/10.0f);
