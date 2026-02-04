@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.northernaurora.dvae25.GUI.GUIComponent.Page;
 import org.northernaurora.dvae25.GUI.GUIComponent.PageContainer;
+import org.northernaurora.dvae25.GUI.GUIComponent.PageContainerListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,24 +15,26 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Stack;
 
-public class DVGUI implements PropertyChangeListener, ComponentListener {
+public class DVGUI implements PropertyChangeListener, PageContainerListener, ComponentListener {
     private static final Logger logger = LogManager.getLogger(DVGUI.class);
 
-
+    private Dimension windowSize;
     private JFrame activeFrame = null;
     private Stack<Page> pageStack;
     private PageContainer pageContainer;
     private Color background;
+    private Component upperGlue = Box.createVerticalGlue() ,lowerGlue = Box.createVerticalGlue();
     public DVGUI() {
         this.initialize();
     }
 
-    private Container getActiveContentPane() {
+
+    public Container getActiveContentPane() {
 
         return this.getActiveJFrame().getContentPane();
     }
 
-    private JFrame getActiveJFrame() {
+    public JFrame getActiveJFrame() {
         return activeFrame;
     }
 
@@ -57,10 +60,12 @@ public class DVGUI implements PropertyChangeListener, ComponentListener {
     private PageContainer newPageContainer() {
         if (this.pageContainer != null){
             this.pageContainer.removePropertyChangeListener("background",this);
+            this.pageContainer.removeListener(this);
         }
         this.pageContainer = new PageContainer();
         this.pageContainer.addPropertyChangeListener("background",this);
         pageContainer.setAlignmentY(Component.CENTER_ALIGNMENT);
+        pageContainer.addListener(this);
         return this.pageContainer;
     }
 
@@ -69,14 +74,15 @@ public class DVGUI implements PropertyChangeListener, ComponentListener {
         this.activeFrame = new JFrame();
         this.getActiveContentPane().setLayout(new BoxLayout(this.getActiveContentPane(),BoxLayout.Y_AXIS));
         this.getActiveJFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getActiveJFrame().setSize(new Dimension(480, 610));
+        this.getActiveJFrame().setSize(new Dimension(900, 900));
         this.setPageStack(new Stack<>());
         this.getActiveJFrame().setVisible(true);
-        this.getActiveContentPane().add(Box.createVerticalGlue());
-        this.getActiveContentPane().add(this.newPageContainer());
-        this.getActiveContentPane().add(Box.createVerticalGlue());
-        logger.debug("Created new Active Frame");
+        this.setScrollable(false);
         this.getActiveContentPane().addComponentListener(this);
+        this.newPageContainer();
+        this.setScrollable(true);
+        this.activeFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        logger.debug("Created new Active Frame");
 
     }
 
@@ -92,12 +98,16 @@ public class DVGUI implements PropertyChangeListener, ComponentListener {
             Page current = this.getPageStack().lastElement();
             logger.debug("Removed activate page!");
         }
+        if (!page.Isinitialized())
+            page.init();
         this.getPageStack().addLast(page);
         this.getPageContainer().setActivePage(page);
         logger.debug("Set page to : "+page.getClass().toString());
-        if (!page.Isinitialized())
-            page.init();
-        this.resized();
+
+        this.revalidate();
+        this.repaint();
+
+
 
     }
 
@@ -114,18 +124,18 @@ public class DVGUI implements PropertyChangeListener, ComponentListener {
         if ((this.isScrollable() && !bool) || (!this.isScrollable() && bool)) {
 
             this.getActiveContentPane().removeAll();
-            this.getActiveContentPane().add(Box.createVerticalGlue());
+            this.getActiveContentPane().add(this.upperGlue, 0.33f);
             if(bool){
                 JScrollPane jScrollPane = new JScrollPane(this.getPageContainer());
                 jScrollPane.setBorder(new EmptyBorder(0,0,0,0));
                 jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
                 jScrollPane.getViewport().setBackground(this.getBackground());
-                this.getActiveContentPane().add(jScrollPane);//, BorderLayout.CENTER);
+                this.getActiveContentPane().add(jScrollPane,0.0f);//, BorderLayout.CENTER);
             }else{
 
                 this.getActiveContentPane().add(this.getPageContainer());//, BorderLayout.CENTER);
             }
-            this.getActiveContentPane().add(Box.createVerticalGlue());
+            this.getActiveContentPane().add(this.lowerGlue);
 
 
         }
@@ -166,30 +176,46 @@ public class DVGUI implements PropertyChangeListener, ComponentListener {
         this.getActiveContentPane().setBackground(this.getBackground());
     }
 
-    public void resized(){
-        if(this.getPageContainer() != null){
+    public Dimension getWindowSize() {
+        return this.getActiveContentPane().getBounds().getSize();
+    }
 
-        }
+    public void revalidate(){
+        this.getActiveContentPane().revalidate();
+    }
+
+    public void repaint(){
+        this.getActiveContentPane().repaint();
     }
 
     @Override
+    public void newSize(Dimension newSize) {
+        this.revalidate();
+        this.repaint();
+        logger.info("New dimension : "+newSize);
+    }
+
+
+    @Override
     public void componentResized(ComponentEvent e) {
-        this.resized();
+        this.getPageContainer().handleComponentSize();
+        this.getPageContainer().registerWindowSizeChange(this.getWindowSize());
+
     }
 
     @Override
     public void componentMoved(ComponentEvent e) {
-        this.resized();
+        this.getPageContainer().handleComponentSize();
     }
 
     @Override
     public void componentShown(ComponentEvent e) {
-        this.resized();
+        this.getPageContainer().handleComponentSize();
     }
 
     @Override
     public void componentHidden(ComponentEvent e) {
-        this.resized();
+        this.getPageContainer().handleComponentSize();
     }
 }
 

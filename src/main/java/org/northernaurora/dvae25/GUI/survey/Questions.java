@@ -1,6 +1,6 @@
-package org.northernaurora.dvae25.GUI.survey.resources;
+package org.northernaurora.dvae25.GUI.survey;
 
-public enum SurveyQuestions {
+public enum Questions {
     ONLINEHABITS("ONLINE_HABITS"),
     ONLINEREGRET("ONLINE_REGRET"),
     ONLINEADBLOCK("ONLINE_ADBLOCK"),
@@ -11,7 +11,7 @@ public enum SurveyQuestions {
     ONLINESHOPPING("ONLINE_SHOPPING");
 
     public final String label;
-    private SurveyQuestions(String label){
+    private Questions(String label){
         this.label = label;
     }
 }

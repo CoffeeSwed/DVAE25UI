@@ -4,9 +4,11 @@ import org.northernaurora.dvae25.GUI.DVGUI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public abstract class Page extends JPanel {
     private boolean has_init = false;
+
     public Page(){
         super();
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
@@ -34,5 +36,8 @@ public abstract class Page extends JPanel {
         return has_init;
     }
 
+    public void onWindowResize(Dimension newSize){
+        
+    }
 
 }

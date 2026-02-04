@@ -1,13 +1,13 @@
-package org.northernaurora.dvae25.GUI.survey.resources;
+package org.northernaurora.dvae25.GUI.survey;
 
-public enum SurveyTexts {
+public enum Texts {
     WELCOMETEXT("SurveyWelcomeText"),
     SPENDINGBEHAVIOR("SPENDINGBEHAVIOR"),
     ONLINEBEHAVIOR("ONLINEBEHAVIOR"),
     FINALPAGE("FINAL_PAGE");
 
     public final String label;
-    private SurveyTexts(String label){
+    private Texts(String label){
         this.label = label;
     }
 }

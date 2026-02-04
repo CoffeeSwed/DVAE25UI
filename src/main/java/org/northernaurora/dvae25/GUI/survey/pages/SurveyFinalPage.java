@@ -3,19 +3,17 @@ package org.northernaurora.dvae25.GUI.survey.pages;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.northernaurora.dvae25.GUI.DVGUI;
-import org.northernaurora.dvae25.GUI.survey.GUIComponent.SurveyQuestionCheckmark;
 import org.northernaurora.dvae25.GUI.survey.factory.SurveyComponentFactory;
 import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentTextTypes;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyLanguages;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.SurveyResources;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyTexts;
+import org.northernaurora.dvae25.GUI.resources.TextLanguages;
+import org.northernaurora.dvae25.GUI.resources.SurveyResources.Resources;
+import org.northernaurora.dvae25.GUI.survey.Texts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class SurveyFinalPage extends SurveyPage implements ActionListener {
     private static Logger logger = LogManager.getLogger(SurveyFinalPage.class);
@@ -34,9 +32,11 @@ public class SurveyFinalPage extends SurveyPage implements ActionListener {
     public void addInfo(){
         try {
             JComponent text = SurveyComponentFactory.createJEditorPane(
-                    SurveyResources.getText(SurveyResources.TEXTSFILE, SurveyTexts.FINALPAGE.label, SurveyLanguages.ENGLISH),
+                    Resources.getText(Resources.TEXTSFILE, Texts.FINALPAGE.label, TextLanguages.ENGLISH),
                     SurveyComponentTextTypes.INFO1);
             // create panel for text area
+            text.setBorder(new EmptyBorder(20,0,20,0));
+
             this.add(text, BorderLayout.PAGE_START);
         }
         catch (Exception e){

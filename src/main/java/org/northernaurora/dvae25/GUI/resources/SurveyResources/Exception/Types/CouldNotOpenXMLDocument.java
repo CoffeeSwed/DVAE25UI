@@ -1,6 +1,6 @@
-package org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.Exception.Types;
+package org.northernaurora.dvae25.GUI.resources.SurveyResources.Exception.Types;
 
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.Exception.SurveyResourcesException;
+import org.northernaurora.dvae25.GUI.resources.SurveyResources.Exception.SurveyResourcesException;
 
 public class CouldNotOpenXMLDocument extends SurveyResourcesException {
     public CouldNotOpenXMLDocument(String resource, Exception e){

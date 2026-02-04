@@ -4,39 +4,41 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class PageContainer extends JPanel implements Scrollable, PropertyChangeListener, ComponentListener {
     private static final Logger logger = LogManager.getLogger(PageContainer.class);
     private Page activePage;
+    private ArrayList<PageContainerListener> listeners = new ArrayList<>();
+    private Component leftGlue = Box.createHorizontalGlue();
+    private Component rightGlue = Box.createHorizontalGlue();
     public PageContainer() {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.setBorder(null);
         this.addComponentListener(this);
+        this.leftGlue.addComponentListener(this);
+        this.rightGlue.addComponentListener(this);
 
     }
 
-    /**
-     * Let preferred size expand naturally based on children
-     */
-    @Override
-    public Dimension getPreferredSize() {
-        int width = 0;
-        int height = 0;
-        for (Component comp : getComponents()) {
-            comp.revalidate();
-            Dimension d = comp.getPreferredSize();
-            width += d.width;
-            height = Math.max(height,d.height);
+    public void removeListener(PageContainerListener listener){
+        this.listeners.remove(listener);
+    }
+
+    public void addListener(PageContainerListener listener){
+        if(!this.listeners.contains(listener)){
+            this.listeners.add(listener);
         }
-        return new Dimension(width, height);
     }
+
+
+
 
     @Override
     public Dimension getPreferredScrollableViewportSize() {
@@ -72,16 +74,18 @@ public class PageContainer extends JPanel implements Scrollable, PropertyChangeL
     public void setActivePage(Page activePage) {
         if (this.getActivePage() != null){
             this.getActivePage().removePropertyChangeListener("background",this);
+            this.getActivePage().removeComponentListener(this);
         }
         this.removeAll();
         activePage.addPropertyChangeListener("background",this);
         this.setBackground(activePage.getBackground());
         activePage.setAlignmentX(0.5f);
-        this.add(Box.createHorizontalGlue());
+        this.add(this.leftGlue,0.5f);
         this.add(activePage);
-        this.add(Box.createHorizontalGlue());
+        this.add(this.rightGlue,0.5f);
         this.activePage = activePage;
-        this.refresh();
+        this.handleComponentSize();
+        activePage.addComponentListener(this);
 
 
     }
@@ -94,43 +98,60 @@ public class PageContainer extends JPanel implements Scrollable, PropertyChangeL
         this.setBackground(newColor);
     }
 
-    public void refresh(){
-        this.revalidate();
-        if(this.getActivePage() != null){
+    public void handleComponentSize(){
+        SwingUtilities.invokeLater(() -> {
+            if(this.getActivePage() != null){
 
-            if(this.getActivePage().getMaximumSize().equals(this.getPreferredSize()) || this.getPreferredSize() == null){
-                return;
+                Dimension newSize = this.getPreferredSize();
+                if(this.getActivePage().getMaximumSize().equals(newSize) || newSize == null){
+                    return;
+                }
+                this.getActivePage().setMaximumSize(newSize);
+                for (PageContainerListener listener : this.listeners){
+                    listener.newSize(newSize);
+                }
+                SwingUtilities.invokeLater(() -> {
+
+                    this.handleComponentSize();
+                });
+
+
             }
-            this.getActivePage().setMaximumSize(this.getPreferredSize());
-        }
-        this.getActivePage().repaint();
+        });
 
     }
 
-    public void resized(){
-        this.refresh();
+    public void registerWindowSizeChange(Dimension newSize){
+        SwingUtilities.invokeLater(() -> {
+            if(this.getActivePage() != null){
+
+
+                if(this.getActivePage() != null){
+                    this.getActivePage().onWindowResize(newSize);
+                }
+
+            }
+        });
     }
 
     @Override
     public void componentResized(ComponentEvent e) {
-        if(e.getSource() == this) {
-            this.refresh();
-        }
+        this.handleComponentSize();
+
     }
 
     @Override
     public void componentMoved(ComponentEvent e) {
-
-        //this.refresh();
+        this.handleComponentSize();
     }
 
     @Override
     public void componentShown(ComponentEvent e) {
-        //this.refresh();
+        this.handleComponentSize();
     }
 
     @Override
     public void componentHidden(ComponentEvent e) {
-        //this.refresh();
+        this.handleComponentSize();
     }
 }

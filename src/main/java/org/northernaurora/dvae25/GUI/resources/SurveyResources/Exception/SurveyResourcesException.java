@@ -1,4 +1,4 @@
-package org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.Exception;
+package org.northernaurora.dvae25.GUI.resources.SurveyResources.Exception;
 
 public class SurveyResourcesException extends Exception {
 

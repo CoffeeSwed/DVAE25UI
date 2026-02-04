@@ -4,13 +4,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.northernaurora.dvae25.GUI.DVGUI;
 import org.northernaurora.dvae25.GUI.GUIComponent.Page;
+import org.northernaurora.dvae25.GUI.GUIComponent.RoundedJPanel;
 import org.northernaurora.dvae25.GUI.survey.GUIComponent.SurveyQuestionCheckmark;
 import org.northernaurora.dvae25.GUI.survey.factory.SurveyComponentFactory;
 import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentTextTypes;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyLanguages;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyQuestions;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.SurveyResources;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyTexts;
+import org.northernaurora.dvae25.GUI.resources.TextLanguages;
+import org.northernaurora.dvae25.GUI.survey.Questions;
+import org.northernaurora.dvae25.GUI.resources.SurveyResources.Resources;
+import org.northernaurora.dvae25.GUI.survey.Texts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -36,9 +37,11 @@ public class SurveyOnlineSocialMediaBehavior extends SurveyPage implements Actio
     public void addInfo(){
         try {
             JComponent text = SurveyComponentFactory.createJEditorPane(
-                    SurveyResources.getText(SurveyResources.TEXTSFILE, SurveyTexts.ONLINEBEHAVIOR.label, SurveyLanguages.ENGLISH),
+                    Resources.getText(Resources.TEXTSFILE, Texts.ONLINEBEHAVIOR.label, TextLanguages.ENGLISH),
                     SurveyComponentTextTypes.INFO1);
             // create panel for text area
+            text.setBorder(new EmptyBorder(20,0,20,0));
+
             this.add(text, BorderLayout.PAGE_START);
         }
         catch (Exception e){
@@ -48,31 +51,31 @@ public class SurveyOnlineSocialMediaBehavior extends SurveyPage implements Actio
     }
 
     public void addQuestions(){
-        JPanel questions = new JPanel();
+        RoundedJPanel questions = new RoundedJPanel(20);
         questions.setLayout(new BoxLayout(questions, BoxLayout.Y_AXIS));
 
         try {
             questions.add(new SurveyQuestionCheckmark(
-                    SurveyResources.getQuestionText(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEHABITS.label, SurveyLanguages.ENGLISH),
-                    SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEHABITS.label, SurveyLanguages.ENGLISH)
+                    Resources.getQuestionText(Resources.QUESTIONSFILE, Questions.ONLINEHABITS.label, TextLanguages.ENGLISH),
+                    Resources.getQuestionAnswers(Resources.QUESTIONSFILE, Questions.ONLINEHABITS.label, TextLanguages.ENGLISH)
             ));
             questions.add(new SurveyQuestionCheckmark(
-                    SurveyResources.getQuestionText(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADBLOCK.label, SurveyLanguages.ENGLISH),
-                    SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADBLOCK.label, SurveyLanguages.ENGLISH)
-            ));
-
-            questions.add(new SurveyQuestionCheckmark(
-                    SurveyResources.getQuestionText(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSVIDEO.label, SurveyLanguages.ENGLISH),
-                    SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSVIDEO.label, SurveyLanguages.ENGLISH)
+                    Resources.getQuestionText(Resources.QUESTIONSFILE, Questions.ONLINEADBLOCK.label, TextLanguages.ENGLISH),
+                    Resources.getQuestionAnswers(Resources.QUESTIONSFILE, Questions.ONLINEADBLOCK.label, TextLanguages.ENGLISH)
             ));
 
             questions.add(new SurveyQuestionCheckmark(
-                    SurveyResources.getQuestionText(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSIMAGES.label, SurveyLanguages.ENGLISH),
-                    SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSIMAGES.label, SurveyLanguages.ENGLISH)
+                    Resources.getQuestionText(Resources.QUESTIONSFILE, Questions.ONLINEADSVIDEO.label, TextLanguages.ENGLISH),
+                    Resources.getQuestionAnswers(Resources.QUESTIONSFILE, Questions.ONLINEADSVIDEO.label, TextLanguages.ENGLISH)
+            ));
+
+            questions.add(new SurveyQuestionCheckmark(
+                    Resources.getQuestionText(Resources.QUESTIONSFILE, Questions.ONLINEADSIMAGES.label, TextLanguages.ENGLISH),
+                    Resources.getQuestionAnswers(Resources.QUESTIONSFILE, Questions.ONLINEADSIMAGES.label, TextLanguages.ENGLISH)
             ));
             questions.add(new SurveyQuestionCheckmark(
-                    SurveyResources.getQuestionText(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSPURCHASES.label, SurveyLanguages.ENGLISH),
-                    SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEADSPURCHASES.label, SurveyLanguages.ENGLISH)
+                    Resources.getQuestionText(Resources.QUESTIONSFILE, Questions.ONLINEADSPURCHASES.label, TextLanguages.ENGLISH),
+                    Resources.getQuestionAnswers(Resources.QUESTIONSFILE, Questions.ONLINEADSPURCHASES.label, TextLanguages.ENGLISH)
             ));
 
 
@@ -85,8 +88,7 @@ public class SurveyOnlineSocialMediaBehavior extends SurveyPage implements Actio
 
 
 
-        questions.setBackground(this.getBackground());
-        questions.setBorder(new EmptyBorder(20,20,20,20));
+        questions.setBackground(Color.WHITE);
         this.getCenterPanel().add(questions);
         JPanel nextPagePanel = new JPanel();
         nextPagePanel.setLayout(new FlowLayout());

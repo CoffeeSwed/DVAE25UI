@@ -4,13 +4,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.northernaurora.dvae25.GUI.DVGUI;
 import org.northernaurora.dvae25.GUI.GUIComponent.Page;
+import org.northernaurora.dvae25.GUI.GUIComponent.RoundedJPanel;
 import org.northernaurora.dvae25.GUI.survey.GUIComponent.SurveyQuestionCheckmark;
 import org.northernaurora.dvae25.GUI.survey.factory.SurveyComponentFactory;
 import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentTextTypes;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyLanguages;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyQuestions;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.SurveyResources;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyTexts;
+import org.northernaurora.dvae25.GUI.resources.TextLanguages;
+import org.northernaurora.dvae25.GUI.survey.Questions;
+import org.northernaurora.dvae25.GUI.resources.SurveyResources.Resources;
+import org.northernaurora.dvae25.GUI.survey.Texts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -36,9 +37,11 @@ public class SurveyOnlineShoppingBehavior extends SurveyPage implements ActionLi
     public void addInfo(){
         try {
             JComponent text = SurveyComponentFactory.createJEditorPane(
-                    SurveyResources.getText(SurveyResources.TEXTSFILE, SurveyTexts.SPENDINGBEHAVIOR.label, SurveyLanguages.ENGLISH),
+                    Resources.getText(Resources.TEXTSFILE, Texts.SPENDINGBEHAVIOR.label, TextLanguages.ENGLISH),
                     SurveyComponentTextTypes.INFO1);
             // create panel for text area
+            text.setBorder(new EmptyBorder(20,0,20,0));
+
             this.add(text, BorderLayout.PAGE_START);
         }
         catch (Exception e){
@@ -48,18 +51,18 @@ public class SurveyOnlineShoppingBehavior extends SurveyPage implements ActionLi
     }
 
     public void addQuestions(){
-        JPanel questions = new JPanel();
+        RoundedJPanel questions = new RoundedJPanel(20);
         questions.setLayout(new BoxLayout(questions, BoxLayout.Y_AXIS));
 
         try {
 
             questions.add(new SurveyQuestionCheckmark(
-                    SurveyResources.getQuestionText(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINESHOPPING.label, SurveyLanguages.ENGLISH),
-                    SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINESHOPPING.label, SurveyLanguages.ENGLISH)
+                    Resources.getQuestionText(Resources.QUESTIONSFILE, Questions.ONLINESHOPPING.label, TextLanguages.ENGLISH),
+                    Resources.getQuestionAnswers(Resources.QUESTIONSFILE, Questions.ONLINESHOPPING.label, TextLanguages.ENGLISH)
             ));
             questions.add(new SurveyQuestionCheckmark(
-                    SurveyResources.getQuestionText(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEREGRET.label, SurveyLanguages.ENGLISH),
-                    SurveyResources.getQuestionAnswers(SurveyResources.QUESTIONSFILE, SurveyQuestions.ONLINEREGRET.label, SurveyLanguages.ENGLISH)
+                    Resources.getQuestionText(Resources.QUESTIONSFILE, Questions.ONLINEREGRET.label, TextLanguages.ENGLISH),
+                    Resources.getQuestionAnswers(Resources.QUESTIONSFILE, Questions.ONLINEREGRET.label, TextLanguages.ENGLISH)
             ));
 
 
@@ -70,8 +73,7 @@ public class SurveyOnlineShoppingBehavior extends SurveyPage implements ActionLi
 
 
 
-        questions.setBackground(this.getBackground());
-        questions.setBorder(new EmptyBorder(20,20,20,20));
+        questions.setBackground(Color.WHITE);
         this.getCenterPanel().add(questions);
         JPanel nextPagePanel = new JPanel();
         nextPagePanel.setLayout(new FlowLayout());

@@ -3,12 +3,13 @@ package org.northernaurora.dvae25.GUI.survey.pages;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.northernaurora.dvae25.GUI.DVGUI;
+import org.northernaurora.dvae25.GUI.GUIComponent.RoundedJPanel;
 import org.northernaurora.dvae25.GUI.survey.GUIComponent.SurveyQuestionCheckmark;
 import org.northernaurora.dvae25.GUI.survey.factory.SurveyComponentFactory;
 import org.northernaurora.dvae25.GUI.survey.factory.Types.SurveyComponentTextTypes;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyLanguages;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.SurveyResources;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyTexts;
+import org.northernaurora.dvae25.GUI.resources.TextLanguages;
+import org.northernaurora.dvae25.GUI.resources.SurveyResources.Resources;
+import org.northernaurora.dvae25.GUI.survey.Texts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -34,9 +35,10 @@ public class SurveyWelcome extends SurveyPage implements ActionListener {
     public void addInfo(){
         try {
             JComponent text = SurveyComponentFactory.createJEditorPane(
-                    SurveyResources.getText(SurveyResources.TEXTSFILE, SurveyTexts.WELCOMETEXT.label, SurveyLanguages.ENGLISH),
+                    Resources.getText(Resources.TEXTSFILE, Texts.WELCOMETEXT.label, TextLanguages.ENGLISH),
                     SurveyComponentTextTypes.INFO1);
             // create panel for text area
+            text.setBorder(new EmptyBorder(20,0,20,0));
             this.add(text, BorderLayout.PAGE_START);
         }
         catch (Exception e){
@@ -46,7 +48,7 @@ public class SurveyWelcome extends SurveyPage implements ActionListener {
     }
 
     public void addQuestions(){
-        JPanel questions = new JPanel();
+        RoundedJPanel questions = new RoundedJPanel(20);
         questions.setLayout(new BoxLayout(questions, BoxLayout.Y_AXIS));
 
         questions.add(new SurveyQuestionCheckmark("How old are you?", Arrays.stream(new String[]{"20-29", "30-39", "40-49", "50-59", "60-69", "70+"}).toList()));
@@ -68,7 +70,7 @@ public class SurveyWelcome extends SurveyPage implements ActionListener {
                         "No previous experience being a part of a survey <b>design</b> process",
                         "Involved in the <b>design</b> process of at least one survey"
                 }).toList()
-        , true));
+                , true));
 
         /*questions.add(new SurveyQuestionCheckmark(
                 "What is your experience with <b>designing</b> surveys?",
@@ -78,8 +80,7 @@ public class SurveyWelcome extends SurveyPage implements ActionListener {
                 }).toList()
         ));*/
 
-        questions.setBackground(this.getBackground());
-        questions.setBorder(new EmptyBorder(20,20,20,20));
+        questions.setBackground(Color.WHITE);
         this.add(questions, BorderLayout.CENTER);
         JPanel nextPagePanel = new JPanel();
         JButton nextPage = new JButton("Continue survey");

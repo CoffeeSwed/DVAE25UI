@@ -1,4 +1,4 @@
-package org.northernaurora.dvae25.GUI.survey.resources.SurveyResources;
+package org.northernaurora.dvae25.GUI.resources.SurveyResources;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -6,10 +6,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyLanguages;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.Exception.SurveyResourcesException;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.Exception.Types.CouldNotOpenXMLDocument;
-import org.northernaurora.dvae25.GUI.survey.resources.SurveyResources.Exception.Types.IdNotFound;
+import org.northernaurora.dvae25.GUI.resources.TextLanguages;
+import org.northernaurora.dvae25.GUI.resources.SurveyResources.Exception.SurveyResourcesException;
+import org.northernaurora.dvae25.GUI.resources.SurveyResources.Exception.Types.CouldNotOpenXMLDocument;
+import org.northernaurora.dvae25.GUI.resources.SurveyResources.Exception.Types.IdNotFound;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SurveyResources {
-    private static final Logger logger = LogManager.getLogger(SurveyResources.class);
+public class Resources {
+    private static final Logger logger = LogManager.getLogger(Resources.class);
 
     public static final String TEXTSFILE = "texts.xml";
     public static final String QUESTIONSFILE = "questions.xml";
@@ -39,7 +39,7 @@ public class SurveyResources {
             return documents.get(file);
         }
 
-        try (InputStream is = SurveyResources.class
+        try (InputStream is = Resources.class
                 .getClassLoader()
                 .getResourceAsStream(file)) {
             if (is != null) {
@@ -65,7 +65,7 @@ public class SurveyResources {
             return raw_contents.get(file);
         }
 
-        try (InputStream is = SurveyResources.class
+        try (InputStream is = Resources.class
                 .getClassLoader()
                 .getResourceAsStream(file)) {
 
@@ -108,17 +108,17 @@ public class SurveyResources {
      *     </text>
      * </message>
      */
-    public static String getText(String file, String id, SurveyLanguages language) throws SurveyResourcesException {
+    public static String getText(String file, String id, TextLanguages language) throws SurveyResourcesException {
         try{
-            Document document = SurveyResources.getDocument(file);
+            Document document = Resources.getDocument(file);
             for (int index = 0; index < document.getElementsByTagName("text").getLength(); index++){
                 Element textElement = (Element)
                         document.getElementsByTagName("text").item(index);
                 if (textElement.getAttribute("id").equals(id)){
                     Element node = (Element) textElement.getElementsByTagName(language.tag).item(0);
-                    if (node.getAttribute(SurveyResources.IS_RAW_RESOURCE).equalsIgnoreCase("true")) {
+                    if (node.getAttribute(Resources.IS_RAW_RESOURCE).equalsIgnoreCase("true")) {
                         String location = node.getTextContent();
-                        return SurveyResources.getRawContent(location);
+                        return Resources.getRawContent(location);
                     }
 
 
@@ -137,17 +137,17 @@ public class SurveyResources {
         }
     }
 
-    public static String getQuestionText(String file, String id, SurveyLanguages language) throws SurveyResourcesException {
+    public static String getQuestionText(String file, String id, TextLanguages language) throws SurveyResourcesException {
         try{
-            Document document = SurveyResources.getDocument(file);
+            Document document = Resources.getDocument(file);
             for (int index = 0; index < document.getElementsByTagName("question").getLength(); index++){
                 Element questionElement = (Element)
                         document.getElementsByTagName("question").item(index);
                 if (questionElement.getAttribute("id").equals(id)){
                     Element node = (Element) ((Element) questionElement.getElementsByTagName("question_text").item(0)).getElementsByTagName(language.tag).item(0);
-                    if (node.getAttribute(SurveyResources.IS_RAW_RESOURCE).equalsIgnoreCase("true")) {
+                    if (node.getAttribute(Resources.IS_RAW_RESOURCE).equalsIgnoreCase("true")) {
                         String location = node.getTextContent();
-                        return SurveyResources.getRawContent(location);
+                        return Resources.getRawContent(location);
                     }
 
 
@@ -168,10 +168,10 @@ public class SurveyResources {
         }
     }
 
-    public static List<String> getQuestionAnswers(String file, String id, SurveyLanguages language) throws SurveyResourcesException {
+    public static List<String> getQuestionAnswers(String file, String id, TextLanguages language) throws SurveyResourcesException {
         try{
             List<String> answers = new ArrayList<>();
-            Document document = SurveyResources.getDocument(file);
+            Document document = Resources.getDocument(file);
             for (int index = 0; index < document.getElementsByTagName("question").getLength(); index++){
                 Element questionElement = (Element)
                         document.getElementsByTagName("question").item(index);
@@ -181,9 +181,9 @@ public class SurveyResources {
                     for(int i = 0; i < length; i++){
                         Element element = (Element) nodeList.item(i);
                         element = (Element) element.getElementsByTagName(language.tag).item(0);
-                        if (element.getAttribute(SurveyResources.IS_RAW_RESOURCE).equalsIgnoreCase("true")) {
+                        if (element.getAttribute(Resources.IS_RAW_RESOURCE).equalsIgnoreCase("true")) {
                             String location = element.getTextContent();
-                            answers.add(SurveyResources.getRawContent(location));
+                            answers.add(Resources.getRawContent(location));
                             continue;
                         }
 
