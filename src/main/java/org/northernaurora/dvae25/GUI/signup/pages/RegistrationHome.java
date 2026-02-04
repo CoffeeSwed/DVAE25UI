@@ -47,6 +47,39 @@ public class RegistrationHome extends Page {
         usernameField = new JTextField("a");
         center.add(usernameField, gbc);
 
+        //Age
+        gbc.gridx = 0;
+        gbc.gridy++;
+        center.add(new JLabel("Age"), gbc);
+
+        gbc.gridx = 1;
+        center.add(new JTextField("20"), gbc);
+
+        //Gender
+        gbc.gridx = 0;
+        gbc.gridy++;
+        center.add(new JLabel("Gender"), gbc);
+
+        gbc.gridx = 1;
+        JComboBox<String> comboBox = new JComboBox<String>();
+        comboBox.addItem( "Man" );
+        comboBox.addItem( "Woman" );
+        comboBox.addItem( "Other" );
+        center.add(comboBox, gbc);
+
+        //Occupation
+        gbc.gridx = 0;
+        gbc.gridy++;
+        center.add(new JLabel("Occupation field"), gbc);
+
+        gbc.gridx = 1;
+        comboBox = new JComboBox<String>();
+        comboBox.addItem( "IT" );
+        comboBox.addItem( "Social welfare" );
+        comboBox.addItem( "Industrial" );
+        comboBox.addItem("Transport");
+        center.add(comboBox, gbc);
+
         // Email
         gbc.gridx = 0;
         gbc.gridy++;

@@ -45,6 +45,9 @@ public class UserAgreement extends Page implements ActionListener {
         this.addTextArea("\t4. Installed applications");
         this.addTextArea("\t5. Application usage information");
         this.addTextArea("\t6. Application settings");
+        this.addTextArea("\t7. Gender");
+        this.addTextArea("\t8. Age");
+        this.addTextArea("\t9. Occupation field");
 
 
 

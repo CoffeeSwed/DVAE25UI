@@ -39,11 +39,12 @@
 <body>
 <h1>How is my privacy protected?</h1>
 <div>
-    To maintain your privacy, all the collected data sent from your device to us is protected by <b>LDP (Local Differential Privacy)</b>. LDP works by inserting noise into the data before it is sent. Noise for this application is introduced by randomly modifying the original data into a state that differs to a degree from the original data. <br>This allows us to publish statistics to our different shareholders while making it impossible for them to determine if you are a customer. LDP also prevents anyone with the modified data to be certain about what the original data was.
+    To maintain your privacy, all the collected data sent from your device to us is protected by <b>LDP (Local Differential Privacy)</b>. LDP works by inserting noise into the data before it is sent. Noise for this application is introduced by randomly modifying the original data into a state that differs to some degree from the original data.
+    <br>This allows us to publish a large amount of complex statistics to our different stakeholders while making it difficult for them to be certain that you are a customer. LDP also prevents anyone with the modified data to be certain about what the original data was.
     <br>
-    The amount of data that is modified is balanced between privacy and the amount of users. This is because more noise means that more data from users are need to gain a useful statistics.
+    The <b>average</b> amount of data that is modified is balanced between privacy and the number of users. This is because adding more noise increases privacy, but also the number of user needed to obtain useful statistics.
 </div>
-<h2>Example</h2>
+<h2>Examples</h2>
 <center>
 <div>
     <table cellpadding="20">
@@ -62,6 +63,18 @@
                     <tr>
                         <td>System Language</td>
                         <td>Swedish</td>
+                    </tr>
+                    <tr>
+                        <td>Age</td>
+                        <td>22</td>
+                    </tr>
+                    <tr>
+                        <td>Sex</td>
+                        <td>Female</td>
+                    </tr>
+                    <tr>
+                        <td>Occupation field</td>
+                        <td>IT</td>
                     </tr>
                     <tr>
                         <td>Installed Applications</td>
@@ -103,6 +116,18 @@
                             <td><i color="orange">English</i></td>
                         </tr>
                         <tr>
+                            <td>Age</td>
+                            <td>22</td>
+                        </tr>
+                        <tr>
+                            <td>Sex</td>
+                            <td><i color="orange">Man</i></td>
+                        </tr>
+                        <tr>
+                            <td>Occupation field</td>
+                            <td>IT</td>
+                        </tr>
+                        <tr>
                             <td>Installed Applications</td>
                             <td>
                                 <table>
@@ -128,6 +153,110 @@
         </tr>
     </table>
 </div>
+    <div>
+        <table cellpadding="20">
+            <tr>
+                <td valign="top">
+                    <div class="tables">
+                        <table border="1" cellpadding="4" cellspacing="0">
+                            <tr>
+                                <th>Field</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <td>Operating System</td>
+                                <td>Linux</td>
+                            </tr>
+                            <tr>
+                                <td>System Language</td>
+                                <td>Swedish</td>
+                            </tr>
+                            <tr>
+                                <td>Age</td>
+                                <td>19</td>
+                            </tr>
+                            <tr>
+                                <td>Sex</td>
+                                <td>Man</td>
+                            </tr>
+                            <tr>
+                                <td>Occupation field</td>
+                                <td>IT</td>
+                            </tr>
+                            <tr>
+                                <td>Installed Applications</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <th>Application</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Zoom</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Discord</th>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <div align="center"><i>Original data</i></div>
+                    </div>
+                </td>
+
+                <td valign="top">
+                    <div class="tables">
+                        <table border="1" cellpadding="4" cellspacing="0">
+                            <tr>
+                                <th>Field</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <td>Operating System</td>
+                                <td><i color="orange">Windows 11</i></td>
+                            </tr>
+                            <tr>
+                                <td>System Language</td>
+                                <td><i color="orange">English</i></td>
+                            </tr>
+                            <tr>
+                                <td>Age</td>
+                                <td><i class="orange">34</i></td>
+                            </tr>
+                            <tr>
+                                <td>Sex</td>
+                                <td>Man</td>
+                            </tr>
+                            <tr>
+                                <td>Occupation field</td>
+                                <td>IT</td>
+                            </tr>
+                            <tr>
+                                <td>Installed Applications</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <th>Application</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Zoom</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Skype</th>
+                                        </tr>
+                                        <tr>
+                                            <th><i color="orange">Firefox</i></th>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <div align="center"><i>Modified data</i></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 </center>
 </body>
 </html>
