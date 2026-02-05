@@ -36,14 +36,14 @@ public class Main{
         pages.put("Signup", new RegistrationHome());
 
         Object[] keyset = pages.keySet().toArray();
-        /*int n = JOptionPane.showOptionDialog(gui.getActiveJFrame(),
+        int n = JOptionPane.showOptionDialog(gui.getActiveJFrame(),
                 "Which GUI?",
                 "SELECT",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
-                keyset, null);*/
-        int n = 1;
+                keyset, null);
+        //int n = 1;
 
         gui.addPage(pages.get(keyset[n]));
 

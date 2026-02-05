@@ -44,7 +44,7 @@ public class RegistrationHome extends Page {
         center.add(new JLabel("Username:"), gbc);
 
         gbc.gridx = 1;
-        usernameField = new JTextField("a");
+        usernameField = new JTextField("");
         center.add(usernameField, gbc);
 
         //Age
@@ -53,7 +53,7 @@ public class RegistrationHome extends Page {
         center.add(new JLabel("Age"), gbc);
 
         gbc.gridx = 1;
-        center.add(new JTextField("20"), gbc);
+        center.add(new JTextField(""), gbc);
 
         //Gender
         gbc.gridx = 0;
@@ -95,7 +95,7 @@ public class RegistrationHome extends Page {
         center.add(new JLabel("Password:"), gbc);
 
         gbc.gridx = 1;
-        passwordField = new JPasswordField("a");
+        passwordField = new JPasswordField("");
         center.add(passwordField, gbc);
 
         // Confirm Password
@@ -104,7 +104,7 @@ public class RegistrationHome extends Page {
         center.add(new JLabel("Confirm Password:"), gbc);
 
         gbc.gridx = 1;
-        confirmPasswordField = new JPasswordField("a");
+        confirmPasswordField = new JPasswordField("");
         center.add(confirmPasswordField, gbc);
 
         // Signup Button

@@ -10,6 +10,7 @@ import org.northernaurora.dvae25.GUI.resources.SurveyResources.Resources;
 import org.northernaurora.dvae25.GUI.resources.TextLanguages;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -87,9 +88,8 @@ public class DPPrivacy extends Page implements ActionListener {
             float heigth = this.getDvguiParent().getWindowSize().height;
             heigth = 8*heigth/10.0f;
             heigth = Math.max(heigth,800);
-            this.getCenter().setMaximumSize(new Dimension(width,Integer.MAX_VALUE));
+            width = (this.getDvguiParent().getWindowSize().width - width)/2;
             this.revalidate();
-            this.repaint();
         }
     }
 

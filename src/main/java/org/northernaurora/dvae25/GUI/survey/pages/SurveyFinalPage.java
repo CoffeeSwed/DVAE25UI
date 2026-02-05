@@ -109,4 +109,12 @@ public class SurveyFinalPage extends SurveyPage implements ActionListener {
 
         }
     }
+
+    @Override
+    public void onWindowUpdate() {
+        if(this.getDvguiParent() != null){
+           this.revalidate();
+           this.setBorder(new EmptyBorder(50,50,50,50));
+        }
+    }
 }

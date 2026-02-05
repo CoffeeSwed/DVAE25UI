@@ -190,8 +190,8 @@ public class DVGUI implements PropertyChangeListener, PageContainerListener, Com
 
     @Override
     public void newSize(Dimension newSize) {
-        this.revalidate();
-        this.repaint();
+        //this.revalidate();
+        //this.repaint();
         logger.info("New dimension : "+newSize);
     }
 
