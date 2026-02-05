@@ -37,7 +37,7 @@ public class UserAgreement extends Page implements ActionListener {
     public void addAll(){
         this.center.removeAll();
         this.addLabel("Privacy Notice");
-        this.addTextArea("To help improve the user experience and share statistics with various shareholders, data will be collected from your system along with usage information from the application.");
+        this.addTextArea("To help improve the user experience and share statistics with various stakeholders, data will be collected from your system along with usage information from the application.");
         this.addTextArea("\nThe information that may be collected includes the following:\n");
         this.addTextArea("\t1. System hardware");
         this.addTextArea("\t2. System operating system");
