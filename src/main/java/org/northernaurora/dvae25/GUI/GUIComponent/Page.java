@@ -3,15 +3,19 @@ package org.northernaurora.dvae25.GUI.GUIComponent;
 import org.northernaurora.dvae25.GUI.DVGUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 public abstract class Page extends JPanel {
     private boolean has_init = false;
+    private Border parentBorder;
+    private DVGUI dvguiParent;
 
     public Page(){
         super();
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         this.setBorder(new EmptyBorder(0,0,0,0));
+        this.setParentBorder(null);
     }
 
 
@@ -20,7 +24,6 @@ public abstract class Page extends JPanel {
         this.has_init = true;
     }
     public abstract String getTitleString();
-    private DVGUI dvguiParent;
 
     public DVGUI getDvguiParent() {
         return dvguiParent;
@@ -38,5 +41,17 @@ public abstract class Page extends JPanel {
     public void onWindowUpdate(){
         
     }
+
+    public Border getParentBorder() {
+        return parentBorder;
+    }
+
+    public void setParentBorder(Border parentBorder) {
+        this.parentBorder = parentBorder;
+        if(this.getDvguiParent() != null){
+            this.getDvguiParent().updateParentBorder();
+        }
+    }
+
 
 }

@@ -75,6 +75,7 @@ public class SurveyFinalPage extends SurveyPage implements ActionListener {
         this.setLayout(new BorderLayout());
         this.addInfo();
         this.addQuestions();
+        this.setBorder(null);
     }
 
     @Override
@@ -113,8 +114,14 @@ public class SurveyFinalPage extends SurveyPage implements ActionListener {
     @Override
     public void onWindowUpdate() {
         if(this.getDvguiParent() != null){
-           this.revalidate();
-           this.setBorder(new EmptyBorder(50,50,50,50));
+            if(this.getDvguiParent().getWindowSize().width > 300) {
+                if(this.getParentBorder() == null) {
+                    this.setParentBorder(new EmptyBorder(0, 100, 0, 100));
+                }
+            }else{
+                this.setParentBorder(null);
+            }
+            this.revalidate();
         }
     }
 }

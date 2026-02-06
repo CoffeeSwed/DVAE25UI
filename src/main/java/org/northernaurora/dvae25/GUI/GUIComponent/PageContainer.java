@@ -157,4 +157,6 @@ public class PageContainer extends JPanel implements Scrollable, PropertyChangeL
     public void componentHidden(ComponentEvent e) {
         this.handleComponentSize();
     }
+
+
 }

@@ -38,8 +38,9 @@ public class SurveyWelcome extends SurveyPage implements ActionListener {
                     Resources.getText(Resources.TEXTSFILE, Texts.WELCOMETEXT.label, TextLanguages.ENGLISH),
                     SurveyComponentTextTypes.INFO1);
             // create panel for text area
-            text.setBorder(new EmptyBorder(20,0,20,0));
+            text.setBorder(new EmptyBorder(0    ,0,20,0));
             this.add(text, BorderLayout.PAGE_START);
+            this.setParentBorder(new EmptyBorder(0,50,0,50));
         }
         catch (Exception e){
             logger.error(e.getMessage());

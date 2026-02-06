@@ -103,7 +103,7 @@ public class DVGUI implements PropertyChangeListener, PageContainerListener, Com
         this.getPageStack().addLast(page);
         this.getPageContainer().setActivePage(page);
         logger.debug("Set page to : "+page.getClass().toString());
-
+        this.updateParentBorder();
         this.revalidate();
         this.repaint();
 
@@ -172,8 +172,11 @@ public class DVGUI implements PropertyChangeListener, PageContainerListener, Com
         this.background = background;
         if(this.getScrollable() != null){
             this.getScrollable().getViewport().setBackground(this.getBackground());
+            this.getScrollable().setBackground(this.getBackground());
+
         }
         this.getActiveContentPane().setBackground(this.getBackground());
+        logger.info("Background color now : "+this.getBackground());
     }
 
     public Dimension getWindowSize() {
@@ -216,6 +219,17 @@ public class DVGUI implements PropertyChangeListener, PageContainerListener, Com
     @Override
     public void componentHidden(ComponentEvent e) {
         this.getPageContainer().handleComponentSize();
+    }
+
+    public void updateParentBorder() {
+        JComponent component = this.getScrollable();
+        component = component == null ? this.getPageContainer() : component;
+        if(component != null && this.getPageContainer().getActivePage() != null){
+            component.setBorder(this.getPageContainer().getActivePage().getParentBorder());
+        }
+        if(component == this.getScrollable()){
+            this.getPageContainer().setBorder(null);
+        }
     }
 }
 
